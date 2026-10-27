@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>李露 · AI Infra</title>
+<meta name="description" content="李露（Lu Li），中国矿业大学 2027 届硕士，方向：推理框架、CUDA/Triton 算子、多模态模型推理优化。">
+<style>
+:root{
+  --bg:#fbfaf7; --fg:#1d1d1f; --muted:#6b6b70; --line:#e6e3dc;
+  --card:#ffffff; --accent:#0b6e4f; --accent-soft:#e3f1ec; --code:#f2f0ea;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#121314; --fg:#e8e8e6; --muted:#9a9a9f; --line:#2a2b2e;
+    --card:#1a1b1d; --accent:#4fc59a; --accent-soft:#18302a; --code:#222326;
+  }
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; background:var(--bg); color:var(--fg);
+  font:16px/1.75 -apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","Noto Sans CJK SC",sans-serif;
+}
+main{max-width:760px; margin:0 auto; padding:56px 20px 40px}
+a{color:var(--accent); text-decoration:none}
+a:hover{text-decoration:underline}
+code{font-family:ui-monospace,SFMono-Regular,Consolas,monospace; font-size:.88em; background:var(--code); padding:.1em .35em; border-radius:4px}
+
+header h1{font-size:2.1rem; margin:0; letter-spacing:.02em}
+header h1 small{font-size:1rem; color:var(--muted); font-weight:400; margin-left:.5em}
+.role{font-size:1.08rem; margin:.35em 0 .2em}
+.meta{color:var(--muted); margin:0}
+.links{display:flex; flex-wrap:wrap; gap:10px; margin-top:18px}
+.links a{
+  border:1px solid var(--line); background:var(--card); border-radius:999px;
+  padding:4px 14px; font-size:.92rem; color:var(--fg);
+}
+.links a:hover{border-color:var(--accent); color:var(--accent); text-decoration:none}
+
+section{margin-top:52px}
+h2{font-size:.85rem; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); font-weight:600; margin:0 0 16px; padding-bottom:8px; border-bottom:1px solid var(--line)}
+
+.feature{
+  background:var(--card); border:1px solid var(--line); border-left:4px solid var(--accent);
+  border-radius:10px; padding:20px 22px;
+}
+.feature h3{margin:0 0 4px; font-size:1.15rem}
+.tag{display:inline-block; font-size:.78rem; background:var(--accent-soft); color:var(--accent); border-radius:4px; padding:0 8px; margin-left:6px; vertical-align:2px}
+.sub{color:var(--muted); font-size:.92rem; margin:0 0 10px}
+.nums{display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin:16px 0 4px}
+.num{background:var(--bg); border-radius:8px; padding:10px 12px}
+.num b{display:block; font-size:1.25rem; font-variant-numeric:tabular-nums}
+.num span{font-size:.8rem; color:var(--muted); line-height:1.4; display:block}
+
+.item{margin-bottom:28px}
+.item h3{font-size:1.05rem; margin:0; display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap}
+.item h3 time{font-weight:400; color:var(--muted); font-size:.9rem}
+ul{padding-left:1.2em; margin:8px 0 0}
+li{margin:4px 0}
+li::marker{color:var(--accent)}
+
+.skills{display:flex; flex-wrap:wrap; gap:8px}
+.skills span{background:var(--card); border:1px solid var(--line); border-radius:6px; padding:2px 10px; font-size:.9rem}
+
+footer{margin-top:64px; color:var(--muted); font-size:.85rem; border-top:1px solid var(--line); padding-top:16px}
+
+@media (max-width:560px){
+  main{padding:36px 16px 32px}
+  header h1{font-size:1.8rem}
+  .nums{grid-template-columns:1fr 1fr}
+}
+</style>
+</head>
+<body>
+<main>
+
+<header>
+  <h1>李露<small>Lu Li</small></h1>
+  <p class="role">AI Infra · 推理框架与 GPU 算子</p>
+  <p class="meta">中国矿业大学 大数据技术与工程 硕士 · 2027 届 · 求职意向：推理引擎 / 算子开发 / 模型适配</p>
+  <nav class="links">
+    <a href="mailto:1355731650@qq.com">✉ 1355731650@qq.com</a>
+    <a href="https://github.com/LLBeYourself">GitHub · LLBeYourself</a>
+    <a href="https://github.com/vllm-project/vllm/pull/63074">vLLM PR #63074</a>
+  </nav>
+</header>
+
+<section>
+  <h2>开源贡献</h2>
+  <div class="feature">
+    <h3>vLLM：dots.ocr ViT 支持 Encoder CUDA Graph<span class="tag">Review 中</span></h3>
+    <p class="sub"><a href="https://github.com/vllm-project/vllm/pull/63074">vllm-project/vllm#63074</a> · 2026.10 · 属于 ViT 全 CUDA Graph 接入计划 <a href="https://github.com/vllm-project/vllm/issues/38175">#38175</a></p>
+    <ul>
+      <li>为 dots.ocr 的 42 层 ViT 实现 <code>SupportsEncoderCudaGraph</code>：forward 拆成图外 metadata 准备与图内计算；<code>cu_seqlens</code> 在 CPU 上算好并按批补齐，<code>max_seqlen</code> 按档位取定值，图内没有 CPU 同步。</li>
+      <li>BF16 GEMM 会随行数切换 kernel，因此以“同样补齐的 eager”为基准，5 类分批场景输出逐位一致，并补了上游单测。</li>
+      <li>文档页（1044 token）补齐到 2048 档反而变慢，所以默认上限设为 512 token，超出时回退 eager。</li>
+    </ul>
+    <div class="nums">
+      <div class="num"><b>1.8–4.5×</b><span>A100 单图 Encoder<br>（64–256 token）</span></div>
+      <div class="num"><b>55→18 ms</b><span>A100 224² 单请求<br>端到端</span></div>
+      <div class="num"><b>1.43→0.23 GiB</b><span>Graph 显存占用<br>（上限 512）</span></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>项目</h2>
+
+  <div class="item">
+    <h3>CUDA / Triton 算子练习<time>2026.02 – 至今</time></h3>
+    <ul>
+      <li>手写 Shared Memory + 寄存器分块 FP32 GEMM，25 种形状对拍通过，约为 cuBLAS 的 44%（RTX 3090）/ 73%（A100）；正在用 Nsight Compute 分析两张卡差距的来源，并做向量化取数与双缓冲。</li>
+      <li>转置、Reduce、Online Softmax、RMSNorm 等 CUDA kernel 8 个，Triton kernel 3 个，均通过对拍和越界检查；Vector Add 达 852 GB/s（约 91% 带宽）。</li>
+      <li>Fused Add + RMSNorm 写成 CUDA Extension，经 PyTorch Dispatcher 接入 vLLM。</li>
+    </ul>
+  </div>
+
+  <div class="item">
+    <h3>Mini-vLLM 多模态推理引擎<time>2026.04 – 至今</time></h3>
+    <p class="sub">学习型项目，参考官方 vLLM 实现</p>
+    <ul>
+      <li>调度：Continuous Batching + Chunked Prefill，按 token 预算混合调度；Decode 阶段使用 CUDA Graph。</li>
+      <li>显存：Paged KV cache（Block Table、Slot Mapping）与 Prefix Caching（引用计数、LRU 淘汰）。</li>
+      <li>多模态：适配 Qwen3-VL，包括 Encoder Cache、M-RoPE 三维位置编码和 DeepStack 视觉特征注入。</li>
+      <li>并行：多进程 Worker + NCCL 张量并行，TP=2/4 与单卡逐 token 一致。</li>
+    </ul>
+  </div>
+</section>
+
+<section>
+  <h2>实习</h2>
+  <div class="item">
+    <h3>江苏比特达信息技术有限公司 · 大模型工程实习生<time>2025.10 – 2026.01</time></h3>
+    <p class="sub">Qwen3-VL 遥感多模态项目</p>
+    <ul>
+      <li>整合 5 个遥感数据集，构建 76.25 万条训练样本；Qwen3-VL-8B LoRA SFT（ZeRO-2，4×A100），BLEU-4 从 12.17 提升到 49.08，VQA 准确率 82.56%（合同要求 ≥ 75%）。</li>
+      <li>合并 LoRA 后通过 OpenAI 兼容 API 部署在单张 3090 上，与 SAR 检测、SAM 分割等组成 4 个服务的系统。</li>
+    </ul>
+  </div>
+</section>
+
+<section>
+  <h2>教育与荣誉</h2>
+  <div class="item">
+    <h3>中国矿业大学 · 大数据技术与工程 · 硕士<time>2024.09 – 2027.07</time></h3>
+    <ul>
+      <li>研究生国家奖学金、研究生优秀学生</li>
+      <li>ICML 2026 论文共同作者；已授权发明专利 8 项</li>
+      <li>硕士课题：遥感多模态大模型的因果推理</li>
+    </ul>
+  </div>
+  <div class="item">
+    <h3>鲁东大学 · 电子信息工程 · 本科<time>2018.09 – 2022.07</time></h3>
+    <ul>
+      <li>国家励志奖学金；校级优秀毕业生；电子设计竞赛特等奖</li>
+    </ul>
+  </div>
+</section>
+
+<section>
+  <h2>技术栈</h2>
+  <div class="skills">
+    <span>vLLM</span><span>CUDA Graph</span><span>KV cache</span><span>张量并行 / NCCL</span>
+    <span>C++</span><span>CUDA</span><span>Triton</span><span>PyTorch</span>
+    <span>Nsight Compute / Systems</span><span>torch.profiler</span>
+  </div>
+</section>
+
+<footer>最后更新：2026 年 10 月</footer>
+
+</main>
+</body>
+</html>
